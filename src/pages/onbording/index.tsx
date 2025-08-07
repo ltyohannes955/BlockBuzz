@@ -10,27 +10,13 @@ import image7 from "../../assets/image 5.png";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { ArrowRight01Icon } from "@hugeicons/core-free-icons";
 import { useNavigate } from "react-router-dom";
+import Onbording1 from "./onbording1";
+import Onbording2 from "./onbording2";
+import Onbording3 from "./onbording3";
 
 export default function Onbording() {
   const navigate = useNavigate();
   const [pageCount, setPageCount] = useState(1);
-  const content = [
-    {
-      title: "Discover What’s Happening Near You",
-      description:
-        "From neighborhood garage sales to local workshops and pop-up markets — explore events happening around you, all in one place.",
-    },
-    {
-      title: "Join In. Meet Up. Connect.",
-      description:
-        "RSVP to local events, meet your neighbors, and become part of your community. It’s more than just events — it’s connection.",
-    },
-    {
-      title: "Post Your Own Events",
-      description:
-        "Hosting something awesome? Post your event in seconds and reach people nearby. Get the word out with just a few taps.",
-    },
-  ];
   return (
     <>
       <Flex h={"100vh"} w={"100%"} direction={"column"} align={"center"}>
@@ -44,48 +30,14 @@ export default function Onbording() {
 
         {pageCount == 1 ? (
           <>
-            <Image
-              style={{ position: "absolute", top: "10%", left: "15%" }}
-              src={image1}
-              fit="contain"
-              alt="logo"
-              h={200}
-              w={200}
-            />
-            <Image
-              style={{ position: "absolute", top: "20%", right: "15%" }}
-              src={image2}
-              fit="contain"
-              alt="logo"
-              h={200}
-              w={200}
-            />
-            <Image
-              style={{ position: "absolute", top: "30%", left: "15%" }}
-              src={image4}
-              fit="contain"
-              alt="logo"
-              h={200}
-              w={200}
-            />
-            <Flex pos={"absolute"} top={"55%"} direction={"column"} gap={"lg"}>
-              <Text
-                c={"#001F37"}
-                fw={"bold"}
-                size="30px"
-                ta={"center"}
-                px={"lg"}
-              >
-                Discover What’s Happening Near You
-              </Text>
-              <Text size="12px" c={"grey"} ta={"center"} px={"xl"}>
-                From neighborhood garage sales to local workshops and pop-up
-                markets — explore events happening around you, all in one place.
-              </Text>
-            </Flex>
+            <Onbording1 />
+          </>
+        ) : pageCount === 2 ? (
+          <>
+            <Onbording2 />
           </>
         ) : (
-          <></>
+          <Onbording3 />
         )}
 
         <Button
