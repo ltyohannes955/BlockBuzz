@@ -1,12 +1,5 @@
-import { Button, Flex, Image, Text } from "@mantine/core";
+import { Button, Flex, Text } from "@mantine/core";
 import { useState } from "react";
-import image1 from "../../assets/image 3-1.png";
-import image2 from "../../assets/image 3-2.png";
-import image3 from "../../assets/image 3.png";
-import image4 from "../../assets/image 4.png";
-import image5 from "../../assets/image 4-2.png";
-import image6 from "../../assets/image 4-1.png";
-import image7 from "../../assets/image 5.png";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { ArrowRight01Icon } from "@hugeicons/core-free-icons";
 import { useNavigate } from "react-router-dom";
@@ -50,7 +43,7 @@ export default function Onbording() {
           color="#001F37"
           onClick={() => {
             if (pageCount == 3) {
-              navigate("/home");
+              navigate("/signup");
             } else {
               setPageCount(pageCount + 1);
             }
