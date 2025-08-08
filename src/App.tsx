@@ -1,10 +1,4 @@
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-  useNavigate,
-  useLocation,
-} from "react-router-dom";
+import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import { App as CapApp } from "@capacitor/app";
 import Home from "./pages/home";
@@ -33,16 +27,14 @@ function App() {
     };
   }, [location, navigate]);
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Landing />} />
-        <Route path="/onbording" element={<Onbording />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/myEvents" element={<MyEvents />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/login" element={<Login />} />
-      </Routes>
-    </BrowserRouter>
+    <Routes>
+      <Route path="/" element={<Landing />} />
+      <Route path="/onbording" element={<Onbording />} />
+      <Route path="/home" element={<Home />} />
+      <Route path="/myEvents" element={<MyEvents />} />
+      <Route path="/signup" element={<Signup />} />
+      <Route path="/login" element={<Login />} />
+    </Routes>
   );
 }
 
