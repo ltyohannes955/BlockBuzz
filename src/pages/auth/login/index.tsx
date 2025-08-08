@@ -32,16 +32,41 @@ export default function Login() {
   const [Password, setPassword] = useState("");
 
   const handleLogin = () => {
-    if (Email === "" || Password === "") {
+    const trimmedEmail = Email.trim();
+    const trimmedPassword = Password.trim();
+
+    if (!trimmedEmail || !trimmedPassword) {
       notifications.show({
         title: "Error",
         message: "Please fill in all fields",
         color: "red",
         radius: "lg",
       });
-    } else {
-      navigate("/home");
+      return;
     }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(trimmedEmail)) {
+      notifications.show({
+        title: "Error",
+        message: "Please enter a valid email address",
+        color: "red",
+        radius: "lg",
+      });
+      return;
+    }
+
+    if (trimmedPassword.length < 6) {
+      notifications.show({
+        title: "Error",
+        message: "Password must be at least 6 characters long",
+        color: "red",
+        radius: "lg",
+      });
+      return;
+    }
+
+    navigate("/home");
   };
 
   return (
