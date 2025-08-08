@@ -6,8 +6,8 @@ import {
   Text,
   TextInput,
 } from "@mantine/core";
-import ellipse from "../../assets/Ellipse.svg";
-import logo from "../../assets/BlockBuzz-90.png";
+import ellipse from "../../../assets/Ellipse.svg";
+import logo from "../../../assets/BlockBuzz-90.png";
 import { HugeiconsIcon } from "@hugeicons/react";
 import {
   ArrowRight01Icon,
@@ -18,6 +18,8 @@ import {
   ViewOffIcon,
 } from "@hugeicons/core-free-icons";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { notifications } from "@mantine/notifications";
 
 export default function Signup() {
   const navigate = useNavigate();
@@ -27,6 +29,76 @@ export default function Signup() {
     ) : (
       <HugeiconsIcon icon={ViewOffIcon} />
     );
+  const [Email, setEmail] = useState("");
+  const [Password, setPassword] = useState("");
+  const [ConfirmPassword, setConfirmPassword] = useState("");
+  const [FirstName, setFirstName] = useState("");
+  const [LastName, setLastName] = useState("");
+
+  const handleSignUp = () => {
+    if (!FirstName || !LastName || !Email || !Password || !ConfirmPassword) {
+      notifications.show({
+        title: "Error",
+        message: "Please fill in all fields",
+        color: "red",
+        radius: "lg",
+      });
+      return;
+    }
+
+    if (FirstName.trim().length < 2) {
+      notifications.show({
+        title: "Error",
+        message: "First Name must be at least 2 characters",
+        color: "red",
+        radius: "lg",
+      });
+      return;
+    }
+
+    if (LastName.trim().length < 2) {
+      notifications.show({
+        title: "Error",
+        message: "Last Name must be at least 2 characters",
+        color: "red",
+        radius: "lg",
+      });
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(Email)) {
+      notifications.show({
+        title: "Error",
+        message: "Please enter a valid email address",
+        color: "red",
+        radius: "lg",
+      });
+      return;
+    }
+
+    if (Password.length < 6) {
+      notifications.show({
+        title: "Error",
+        message: "Password must be at least 6 characters",
+        color: "red",
+        radius: "lg",
+      });
+      return;
+    }
+
+    if (Password !== ConfirmPassword) {
+      notifications.show({
+        title: "Error",
+        message: "Passwords do not match",
+        color: "red",
+        radius: "lg",
+      });
+      return;
+    }
+
+    navigate("/login");
+  };
 
   return (
     <>
@@ -52,7 +124,12 @@ export default function Signup() {
         </Text>
       </Flex>
 
-      <Flex justify={"center"}>
+      <Flex
+        justify={"space-between"}
+        direction={"column"}
+        align={"center"}
+        h={"52vh"}
+      >
         <Flex mt={"xl"} px={"xl"} direction={"column"} gap={"md"}>
           <Flex justify={"space-between"} gap={"lg"}>
             <TextInput
@@ -60,12 +137,16 @@ export default function Signup() {
               size="md"
               leftSection={<HugeiconsIcon icon={UserIcon} />}
               placeholder="First Name"
+              value={FirstName}
+              onChange={(e) => setFirstName(e.target.value)}
             />
             <TextInput
               radius={"md"}
               size="md"
               leftSection={<HugeiconsIcon icon={UserIcon} />}
               placeholder="Last Name"
+              value={LastName}
+              onChange={(e) => setLastName(e.target.value)}
             />
           </Flex>
           <TextInput
@@ -73,6 +154,8 @@ export default function Signup() {
             size="md"
             leftSection={<HugeiconsIcon icon={Mail02Icon} />}
             placeholder="Email"
+            value={Email}
+            onChange={(e) => setEmail(e.target.value)}
           />
           <PasswordInput
             radius={"md"}
@@ -80,6 +163,8 @@ export default function Signup() {
             leftSection={<HugeiconsIcon icon={LockIcon} />}
             visibilityToggleIcon={VisibilityToggleIcon}
             placeholder="Password"
+            value={Password}
+            onChange={(e) => setPassword(e.target.value)}
           />
           <PasswordInput
             radius={"md"}
@@ -87,6 +172,8 @@ export default function Signup() {
             leftSection={<HugeiconsIcon icon={LockIcon} />}
             visibilityToggleIcon={VisibilityToggleIcon}
             placeholder="Confirm Password"
+            value={ConfirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
           />
           <Button
             mt={"sm"}
@@ -96,24 +183,13 @@ export default function Signup() {
             color="#001F37"
             radius={"md"}
             onClick={() => {
-              navigate("/login");
+              handleSignUp();
             }}
           >
             Sign up
           </Button>
         </Flex>
-        <Text
-          size="sm"
-          ta={"center"}
-          w={"80%"}
-          pos={"absolute"}
-          bottom={"2%"}
-          c="grey"
-          onClick={() => {
-            navigate("/home");
-          }}
-          span
-        >
+        <Text size="sm" ta={"center"} w={"80%"} c="grey" span>
           Already have an account?{" "}
           <Text
             span
